@@ -1,35 +1,35 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+import ComparePage from "./assets/pages/ComparePage"
+import DetailPage from "./assets/pages/Detailpage"
+import FavouritePage from "./assets/pages/FavouritePage"
+import ArmorPage from "./assets/pages/ArmorPage"
+import WeaponPage from "./assets/pages/WeaponsPage"
+import StratagemPage from "./assets/pages/StratagemsPage"
+import HomePage from "./assets/pages/Homepage"
+import Welcome from "./assets/pages/Welcome"
+import DefaultLayout from "./assets/layout/DefaultLayout"
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Welcome />} />
+        <Route element={<DefaultLayout />}>
+          <Route path="/homepage" element={<HomePage />} />
+          <Route path="/stratagemmi" element={<StratagemPage />} />
+          <Route path="/armature" element={<ArmorPage />} />
+          <Route path="/armi" element={<WeaponPage />} />
+          <Route path="/stratagemmi/:id" element={<DetailPage />} />
+          <Route path="/armature/:id" element={<DetailPage />} />
+          <Route path="/armi/:id" element={<DetailPage />} />
+          <Route path="/preferiti" element={<FavouritePage />} />
+          <Route path="/confronta" element={<ComparePage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+
+  );
 }
 
 export default App
