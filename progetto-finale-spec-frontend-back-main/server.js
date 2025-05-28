@@ -25,6 +25,8 @@ app.use(cors({
 }));
 app.use(express.json({ limit: 'Infinity' }));
 
+app.use(express.static('public'))
+
 // **CACHE in memoria** for each resource type
 const cache = {};
 

@@ -1,11 +1,22 @@
+import { useEffect } from 'react'
+import { useGlobalContext } from '../context/GlobalContext'
 import MainStratagems from "../components/MainStratagems"
 
-export default function StratagemPage(){
-    return(
+export default function StratagemPage() {
+
+    const { stratagems, fetchDataStratagem } = useGlobalContext()
+
+    useEffect(() => {
+        fetchDataStratagem()
+    }, [])
+
+    return (
         <>
-         <h1>Io sono la pagina degli stratagemmi!</h1>
-         <MainStratagems/>
-         </>
-       
+            <div className='container text-center'>
+                <h2>STRATAGEMMI</h2>
+                <MainStratagems filteredStratagems={stratagems} />
+            </div>
+
+        </>
     )
 }

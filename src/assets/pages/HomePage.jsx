@@ -10,12 +10,23 @@ export default function HomePage() {
     const { armors, fetchDataArmor, fetchDataWeapon, fetchDataStratagem, weapons, stratagems } = useGlobalContext();
 
     const [query, setQuery] = useState('')
+    const [sortOrder, setSortOrder] = useState(0)
 
     const combinedData = [...armors, ...weapons, ...stratagems]
+
+    function handleClick() {
+        setSortOrder(prev => prev === 1 ? -1 : 1)
+    }
 
     const filteredData = combinedData.filter(item =>
         item.title.toLowerCase().includes(query.toLowerCase())
     )
+
+    filteredData.sort((a, b) => {
+        return sortOrder === 1
+            ? a.title.localeCompare(b.title)
+            : b.title.localeCompare(a.title)
+    })
 
     useEffect(() => {
         fetchDataArmor()
@@ -32,9 +43,12 @@ export default function HomePage() {
         <>
             <div className='text-center'>
                 <SearchBar query={query} setQuery={setQuery} />
+                <button onClick={handleClick}>
+                    Ordine {sortOrder === 1 ? "A-Z" : "Z-A"}
+                </button>
             </div>
 
-            <div className="container d-flex justify-content-between">
+            <div className="container">
                 <div>
                     <h3 className="text-center">Stratagemmi</h3>
                     <MainStratagems filteredStratagems={filteredStratagem} />
@@ -48,8 +62,6 @@ export default function HomePage() {
                     <MainArmors filteredArmor={filteredArmor} />
                 </div>
             </div>
-
-
         </>
     )
 }
