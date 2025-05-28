@@ -11,9 +11,11 @@ export default function MainStratagems({ filteredStratagems }) {
                                 <Link
                                     to={`/stratagemmi/${element.id}`}
                                     className="text-decoration-none text-dark flex-grow-1"
+                                    
                                 >
                                     <h6 className="card-title">{element.title}</h6>
                                     <h6 className="card-subtitle mb-2 text-muted">{element.category.toUpperCase()}</h6>
+                                    {element.description}
                                 </Link>
 
                                 <div className="mt-3 d-flex justify-content-between">

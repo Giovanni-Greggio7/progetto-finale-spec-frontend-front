@@ -8,10 +8,12 @@ const GlobalProvider = ({ children }) => {
 
     function fetchDataStratagem() {
         fetch('http://localhost:3001/stratagems')
-            .then(response => response.json()
-                .then(data => setStratagems(data))
-                .catch(error => console.error(error))
-            )
+            .then(response => response.json())
+            .then(data => {
+                console.log("Dati ricevuti dal server:", data); // Log dei dati ricevuti
+                setStratagems(data);
+            })
+            .catch(error => console.error("Errore nel recupero degli stratagemmi:", error));
     }
 
     useEffect(() => {
