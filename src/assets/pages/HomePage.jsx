@@ -36,27 +36,31 @@ export default function HomePage() {
     return (
 
         <>
-            <div className='text-center'>
-                <SearchBar query={query} setQuery={setQuery} />
-            </div>
-            <div className='d-flex text-center'>
-                <button onClick={handleClick}>
-                    Ordine {sortOrder === 1 ? "A-Z" : "Z-A"}
-                </button>
-                <select
-                    value={filteredStrat}
-                    onChange={e => setFilteredStrat(e.target.value)}>
-                    <option value="">Tutte le categorie</option>
-                    <option value="Offensivo">Offensivo</option>
-                    <option value="Difensivo">Difensivo</option>
-                    <option value="Equipaggiamento">Equipaggiamento</option>
-                </select>
-            </div>
+            <div className="bg-dark py-4">
+                <div className="container">
+                    <div className="text-center mb-3">
+                        <SearchBar query={query} setQuery={setQuery} />
+                    </div>
 
-            <div className="container">
-                <div>
-                    <h3 className="text-center">Stratagemmi</h3>
-                    <MainStratagems filteredStratagems={filteredStratagem} />
+                    <div className="d-flex flex-wrap justify-content-center align-items-center gap-3 mb-4">
+                        <button className="btn btn-secondary" onClick={handleClick}>
+                            Ordina {sortOrder === 1 ? "A-Z" : "Z-A"}
+                        </button>
+
+                        <select
+                            className="form-select w-auto"
+                            value={filteredStrat}
+                            onChange={e => setFilteredStrat(e.target.value)}
+                        >
+                            <option value="">Tutte le categorie</option>
+                            <option value="Offensivo">Offensivo</option>
+                            <option value="Difensivo">Difensivo</option>
+                            <option value="Equipaggiamento">Equipaggiamento</option>
+                        </select>
+                    </div>
+
+                    <h3 className="text-center mb-4">Stratagemmi</h3>
+                    <MainStratagems filteredStratagems={filteredData} />
                 </div>
             </div>
         </>
