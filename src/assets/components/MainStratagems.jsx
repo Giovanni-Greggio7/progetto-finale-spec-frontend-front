@@ -1,30 +1,12 @@
-import { useState, useEffect } from 'react'
-
-export default function MainStratagems() {
-
-    const [stratagems, setStratagems] = useState([])
-
-    function fecthData() {
-        fetch('http://localhost:3001/stratagems')
-            .then(response => response.json()
-                .then(data => setStratagems(data))
-                .catch(error => console.error(error))
-            )
-    }
-
-    useEffect(() => {
-        fecthData()
-    }, [])
+export default function MainStratagems({ filteredStratagems }) {
 
     return (
         <>
-            <h1>Io sono il componente centrale per gli stratagemmi</h1>
             <ul>
-                {stratagems.map(element => {
+                {filteredStratagems.map(element => {
                     return (
                         <li key={element.id}>
-                            {element.title}
-                            {element.category}
+                            {element.title} - {element.category}
                         </li>
                     )
 

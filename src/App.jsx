@@ -8,26 +8,30 @@ import StratagemPage from "./assets/pages/StratagemsPage"
 import HomePage from "./assets/pages/Homepage"
 import Welcome from "./assets/pages/Welcome"
 import DefaultLayout from "./assets/layout/DefaultLayout"
+import { GlobalProvider } from "./assets/context/GlobalContext"
 
 function App() {
   return (
 
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Welcome />} />
-        <Route element={<DefaultLayout />}>
-          <Route path="/homepage" element={<HomePage />} />
-          <Route path="/stratagemmi" element={<StratagemPage />} />
-          <Route path="/armature" element={<ArmorPage />} />
-          <Route path="/armi" element={<WeaponPage />} />
-          <Route path="/stratagemmi/:id" element={<DetailPage />} />
-          <Route path="/armature/:id" element={<DetailPage />} />
-          <Route path="/armi/:id" element={<DetailPage />} />
-          <Route path="/preferiti" element={<FavouritePage />} />
-          <Route path="/confronta" element={<ComparePage />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <GlobalProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Welcome />} />
+          <Route element={<DefaultLayout />}>
+            <Route path="/homepage" element={<HomePage />} />
+            <Route path="/stratagemmi" element={<StratagemPage />} />
+            <Route path="/armature" element={<ArmorPage />} />
+            <Route path="/armi" element={<WeaponPage />} />
+            <Route path="/stratagemmi/:id" element={<DetailPage />} />
+            <Route path="/armature/:id" element={<DetailPage />} />
+            <Route path="/armi/:id" element={<DetailPage />} />
+            <Route path="/preferiti" element={<FavouritePage />} />
+            <Route path="/confronta" element={<ComparePage />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </GlobalProvider>
+
 
   );
 }
