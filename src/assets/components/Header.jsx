@@ -8,8 +8,6 @@ export default function Header() {
         {/* Sezione sinistra */}
         <nav className="d-flex gap-3 w-25 justify-content-start">
           <Link to="/stratagemmi" className="text-decoration-none text-dark fw-semibold">Stratagemmi</Link>
-          <Link to="/armature" className="text-decoration-none text-dark fw-semibold">Armature</Link>
-          <Link to="/armi" className="text-decoration-none text-dark fw-semibold">Armi</Link>
         </nav>
 
         {/* Logo centrato */}

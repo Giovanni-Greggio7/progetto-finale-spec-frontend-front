@@ -4,17 +4,7 @@ const GlobalContext = createContext()
 
 const GlobalProvider = ({ children }) => {
 
-    const [armors, setArmors] = useState([])
     const [stratagems, setStratagems] = useState([])
-    const [weapons, setWeapons] = useState([])
-
-    function fetchDataArmor() {
-        fetch('http://localhost:3001/armors')
-            .then(response => response.json()
-                .then(data => setArmors(data))
-                .catch(error => console.error(error))
-            )
-    }
 
     function fetchDataStratagem() {
         fetch('http://localhost:3001/stratagems')
@@ -24,28 +14,13 @@ const GlobalProvider = ({ children }) => {
             )
     }
 
-    function fetchDataWeapon() {
-        fetch('http://localhost:3001/weapons')
-            .then(response => response.json()
-                .then(data => setWeapons(data))
-                .catch(error => console.error(error))
-            )
-    }
-
     useEffect(() => {
-        fetchDataArmor()
         fetchDataStratagem()
-        fetchDataWeapon()
     }, [])
 
-    console.log(armors)
 
     const value = {
-        armors,
-        weapons,
         stratagems,
-        fetchDataArmor,
-        fetchDataWeapon,
         fetchDataStratagem
     }
 
