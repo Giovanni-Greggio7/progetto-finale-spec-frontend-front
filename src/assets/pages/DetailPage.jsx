@@ -1,8 +1,11 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { useGlobalContext } from '../context/GlobalContext';
 
 export default function DetailPage() {
     const { id } = useParams();
+    const navigate = useNavigate();
+    const { addToCompare, addToFavourite } = useGlobalContext();
     const [stratagem, setStratagem] = useState(null);
 
     useEffect(() => {
@@ -14,6 +17,16 @@ export default function DetailPage() {
 
     if (!stratagem) {
         return <p className="text-center mt-5 text-danger fw-bold">Stratagemma non trovato!</p>;
+    }
+
+    const handleCompare = () => {
+        addToCompare(stratagem);
+        navigate('/confronta');
+    }
+
+    const handleFavourite = () => {
+        addToFavourite(stratagem);
+        navigate('/preferiti');
     }
 
     return (
@@ -30,7 +43,7 @@ export default function DetailPage() {
                                 maxHeight: '800px',
                                 maxWidth: '500px',
                                 objectFit: 'contain',
-                              }}
+                            }}
                         />
                     </div>
                     <div className="col-md-6">
@@ -45,8 +58,10 @@ export default function DetailPage() {
                         <p><strong>Area di effetto:</strong> {stratagem.areaOfEffect}</p>
 
                         <div className="d-flex gap-3 mt-4">
-                            <button className="btn btn-outline-primary">Confronta</button>
-                            <button className="btn btn-outline-danger">★ Preferito</button>
+                            <button className="btn btn-outline-primary" onClick={handleCompare}>
+                                Confronta
+                            </button>
+                            <button className="btn btn-outline-danger" onClick={handleFavourite}>★ Preferito</button>
                         </div>
                     </div>
                 </div>

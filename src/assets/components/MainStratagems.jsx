@@ -1,10 +1,17 @@
 import { Link } from "react-router-dom";
+import { useGlobalContext } from "../context/GlobalContext";
 
 export default function MainStratagems({ filteredStratagems }) {
+  const { addToCompare } = useGlobalContext();
+
   const categoryClasses = {
     offensivo: "bg-danger text-white",
     difensivo: "bg-success text-white",
     equipaggiamento: "bg-info text-white",
+  };
+
+  const handleCompare = (stratagem) => {
+    addToCompare(stratagem); // Aggiungi lo stratagemma alla lista di confronto
   };
 
   return (
@@ -27,7 +34,12 @@ export default function MainStratagems({ filteredStratagems }) {
                   </Link>
 
                   <div className="mt-3 d-flex justify-content-between">
-                    <button className="btn btn-outline-light btn-sm">Confronta</button>
+                    <button
+                      className="btn btn-outline-light btn-sm"
+                      onClick={() => handleCompare(element)} // Passa lo stratagemma corrente
+                    >
+                      Confronta
+                    </button>
                     <button className="btn btn-outline-light btn-sm">★ Preferito</button>
                   </div>
                 </div>

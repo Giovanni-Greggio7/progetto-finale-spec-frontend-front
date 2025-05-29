@@ -1,10 +1,11 @@
-import { createContext, useContext, useState, useEffect } from "react"
+import { createContext, useContext, useState, useEffect } from "react";
 
-const GlobalContext = createContext()
+const GlobalContext = createContext();
 
 const GlobalProvider = ({ children }) => {
-
     const [stratagems, setStratagems] = useState([])
+    const [compareStratagems, setCompareStratagems] = useState([]) 
+    const [favouriteStratagem, setFavouriteStratagem] = useState([]) 
 
     function fetchDataStratagem() {
         fetch('http://localhost:3001/stratagems')
@@ -17,22 +18,52 @@ const GlobalProvider = ({ children }) => {
     }
 
     useEffect(() => {
-        fetchDataStratagem()
-    }, [])
+        fetchDataStratagem();
+    }, []);
 
+    const addToCompare = (stratagem) => {
+        if (compareStratagems.length < 2 && !compareStratagems.find((item) => item.id === stratagem.id)) {
+            setCompareStratagems([...compareStratagems, stratagem]);
+        }
+    }
 
-    const value = {
-        stratagems,
-        fetchDataStratagem
+    const addToFavourite = (stratagem) => {
+        setFavouriteStratagem([...favouriteStratagem, stratagem])
+    }
+
+    const clearFavourite = (stratagem = null) => {
+        if (stratagem) {
+            setFavouriteStratagem(favouriteStratagem.filter((item) => item.id !== stratagem.id));
+        }
+    }
+
+    const clearCompare = (stratagem = null) => {
+        if (stratagem) {
+            setCompareStratagems(compareStratagems.filter((item) => item.id !== stratagem.id));
+        } else {
+            setCompareStratagems([]);
+        }
     }
 
     return (
-        <GlobalContext.Provider value={value}>
+        <GlobalContext.Provider
+            value={{
+                stratagems,
+                setStratagems,
+                compareStratagems,
+                favouriteStratagem,
+                addToCompare,
+                addToFavourite,
+                clearCompare,
+                clearFavourite,
+                fetchDataStratagem,
+            }}
+        >
             {children}
         </GlobalContext.Provider>
-    )
-}
+    );
+};
 
-const useGlobalContext = () => useContext(GlobalContext)
+const useGlobalContext = () => useContext(GlobalContext);
 
 export { GlobalProvider, useGlobalContext }

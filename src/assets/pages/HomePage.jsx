@@ -31,8 +31,6 @@ export default function HomePage() {
         fetchDataStratagem()
     }, [])
 
-    const filteredStratagem = filteredData.filter(item => stratagems.includes(item))
-
     return (
 
         <>
