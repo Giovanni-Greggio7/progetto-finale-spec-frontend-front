@@ -12,8 +12,8 @@ export default function StratagemPage() {
 
     return (
         <>
-            <div className='container text-center'>
-                <h2>STRATAGEMMI</h2>
+            <div className='container vh-100 bg-dark'>
+                <h2 className='text-center text-yellow'>STRATAGEMMI</h2>
                 <MainStratagems filteredStratagems={stratagems} />
             </div>
 

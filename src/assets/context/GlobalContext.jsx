@@ -4,8 +4,8 @@ const GlobalContext = createContext();
 
 const GlobalProvider = ({ children }) => {
     const [stratagems, setStratagems] = useState([])
-    const [compareStratagems, setCompareStratagems] = useState([]) 
-    const [favouriteStratagem, setFavouriteStratagem] = useState([]) 
+    const [compareStratagems, setCompareStratagems] = useState([])
+    const [favouriteStratagem, setFavouriteStratagem] = useState([])
 
     function fetchDataStratagem() {
         fetch('http://localhost:3001/stratagems')
@@ -28,7 +28,9 @@ const GlobalProvider = ({ children }) => {
     }
 
     const addToFavourite = (stratagem) => {
-        setFavouriteStratagem([...favouriteStratagem, stratagem])
+        if (!favouriteStratagem.find((item) => item.id === stratagem.id)) {
+            setFavouriteStratagem([...favouriteStratagem, stratagem])
+        }
     }
 
     const clearFavourite = (stratagem = null) => {

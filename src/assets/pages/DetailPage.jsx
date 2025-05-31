@@ -30,14 +30,14 @@ export default function DetailPage() {
     }
 
     return (
-        <div className="container my-5">
-            <div className="card shadow p-4">
+        <div className="container my-5 vh-100">
+            <div className="card bg-black shadow p-4">
                 <div className="row g-4">
                     <div className="col-md-6 text-center d-flex align-items-center justify-content-center">
                         <img
                             src={`http://localhost:3001/${stratagem.image}`}
                             alt={stratagem.title}
-                            className="img-fluid rounded border"
+                            className="img-fluid rounded"
                             style={{
                                 minHeight: '400px',
                                 maxHeight: '800px',
@@ -46,7 +46,7 @@ export default function DetailPage() {
                             }}
                         />
                     </div>
-                    <div className="col-md-6">
+                    <div className="col-md-6 text-yellow">
                         <h2 className="mb-3">{stratagem.title}</h2>
                         <h5 className="text-muted mb-3">Categoria: {stratagem.category}</h5>
 
@@ -58,10 +58,10 @@ export default function DetailPage() {
                         <p><strong>Area di effetto:</strong> {stratagem.areaOfEffect}</p>
 
                         <div className="d-flex gap-3 mt-4">
-                            <button className="btn btn-outline-primary" onClick={handleCompare}>
+                            <button className="btn btn-primary" onClick={handleCompare}>
                                 Confronta
                             </button>
-                            <button className="btn btn-outline-danger" onClick={handleFavourite}>★ Preferito</button>
+                            <button className="btn btn-warning" onClick={handleFavourite}>★ Preferito</button>
                         </div>
                     </div>
                 </div>

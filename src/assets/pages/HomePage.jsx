@@ -32,9 +32,8 @@ export default function HomePage() {
     }, [])
 
     return (
-
         <>
-            <div className="bg-dark py-4">
+            <div className="bg-dark vh-100">
                 <div className="container">
                     <div className="text-center mb-3">
                         <SearchBar query={query} setQuery={setQuery} />
@@ -57,7 +56,7 @@ export default function HomePage() {
                         </select>
                     </div>
 
-                    <h3 className="text-center mb-4">Stratagemmi</h3>
+                    <h3 className="text-center mb-4 text-yellow">Stratagemmi</h3>
                     <MainStratagems filteredStratagems={filteredData} />
                 </div>
             </div>

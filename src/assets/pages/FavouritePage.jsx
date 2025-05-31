@@ -2,7 +2,7 @@ import { useGlobalContext } from "../context/GlobalContext";
 import { useNavigate } from "react-router-dom";
 
 export default function FavouritePage() {
-  const { favouriteStratagem, clearFavouriteStratagem } = useGlobalContext();
+  const { favouriteStratagem, clearFavourite } = useGlobalContext();
   const navigate = useNavigate();
 
   const handleBackHome = () => {
@@ -37,7 +37,7 @@ export default function FavouritePage() {
               </p>
               <button
                 className="btn btn-danger"
-                onClick={() => clearFavouriteStratagem(stratagem)}
+                onClick={() => clearFavourite(stratagem)}
               >
                 Rimuovi dai preferiti
               </button>
