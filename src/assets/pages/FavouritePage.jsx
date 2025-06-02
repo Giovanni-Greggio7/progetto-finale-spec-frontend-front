@@ -10,46 +10,55 @@ export default function FavouritePage() {
   };
 
   if (favouriteStratagem.length === 0) {
-    return <p>Non hai stratagemmi preferiti!</p>;
+    return (
+      <div className="container text-center mt-5 vh-100">
+        <p className="text-warning fw-bold fs-4">
+          Non hai stratagemmi preferiti!
+        </p>
+        <button className="btn btn-outline-light mt-3" onClick={handleBackHome}>
+          Torna alla Homepage
+        </button>
+      </div>
+    );
   }
 
   return (
-    <>
-      <h1 className="text-white container">I tuoi stratagemmi</h1>
-      <div className="row container mx-auto">
+    <div className="container py-5 bg-dark min-vh-100">
+      <h1 className="text-center text-warning mb-5">I tuoi stratagemmi preferiti</h1>
+      <div className="row g-4">
         {favouriteStratagem.map((stratagem) => (
-          <div key={stratagem.id} className="col-md-6 my-3">
-            <div className="card shadow p-4">
-              <img
-                src={`http://localhost:3001/${stratagem.image}`}
-                alt={stratagem.title}
-                className="img-fluid rounded border"
-                style={{
-                  minHeight: "350px",
-                  maxHeight: "800px",
-                  maxWidth: "350px",
-                  objectFit: "contain",
-                }}
-              />
-              <h2>{stratagem.title}</h2>
-              <p>
-                <strong>Categoria:</strong> {stratagem.category}
-              </p>
-              <button
-                className="btn btn-danger"
-                onClick={() => clearFavourite(stratagem)}
-              >
-                Rimuovi dai preferiti
-              </button>
+          <div key={stratagem.id} className="col-md-3">
+            <div className="card bg-secondary text-light h-100 shadow-lg d-flex flex-column">
+              <div className="card-body d-flex flex-column">
+                <img
+                  src={`http://localhost:3001/${stratagem.image}`}
+                  alt={stratagem.title}
+                  className="img-fluid rounded mb-3"
+                  style={{
+                    minHeight: "350px",
+                    maxHeight: "500px",
+                    maxWidth: "100%",
+                    objectFit: "contain",
+                  }}
+                />
+                <h4 className="card-title text-warning">{stratagem.title}</h4>
+                <p className="mb-4"><strong>Categoria:</strong> {stratagem.category}</p>
+                <button
+                  className="btn btn-danger mt-auto"
+                  onClick={() => clearFavourite(stratagem)}
+                >
+                  Rimuovi dai preferiti
+                </button>
+              </div>
             </div>
           </div>
         ))}
       </div>
-      <div className="container my-4">
-        <button className="btn btn-secondary" onClick={handleBackHome}>
+      <div className="text-center mt-5">
+        <button className="btn btn-primary" onClick={handleBackHome}>
           Torna alla homepage
         </button>
       </div>
-    </>
+    </div>
   );
 }

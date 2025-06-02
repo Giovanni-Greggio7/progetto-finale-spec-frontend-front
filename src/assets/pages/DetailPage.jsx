@@ -48,7 +48,7 @@ export default function DetailPage() {
                     </div>
                     <div className="col-md-6 text-yellow">
                         <h2 className="mb-3">{stratagem.title}</h2>
-                        <h5 className="text-muted mb-3">Categoria: {stratagem.category}</h5>
+                        <h5 className="text mb-3">Categoria: {stratagem.category}</h5>
 
                         <p><strong>Descrizione:</strong> {stratagem.description}</p>
                         <p><strong>Cooldown:</strong> {stratagem.cooldown}</p>
