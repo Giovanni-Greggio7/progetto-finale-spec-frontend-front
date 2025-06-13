@@ -16,7 +16,6 @@ export default function StratagemPage() {
                 <h2 className='text-center text-yellow'>STRATAGEMMI</h2>
                 <MainStratagems filteredStratagems={stratagems} />
             </div>
-
         </>
     )
 }

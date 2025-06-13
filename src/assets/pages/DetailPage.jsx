@@ -51,10 +51,10 @@ export default function DetailPage() {
                         <h5 className="text mb-3">Categoria: {stratagem.category}</h5>
 
                         <p><strong>Descrizione:</strong> {stratagem.description}</p>
-                        <p><strong>Cooldown:</strong> {stratagem.cooldown}</p>
+                        <p><strong>Cooldown:</strong> {stratagem.cooldown} secondi</p>
                         <p><strong>Usi:</strong> {stratagem.uses}</p>
                         <p><strong>Codice di attivazione:</strong> {stratagem.activationCode}</p>
-                        <p><strong>Tempo di dispiegamento:</strong> {stratagem.deploymentTime}</p>
+                        <p><strong>Tempo di dispiegamento:</strong> {stratagem.deploymentTime} secondi</p>
                         <p><strong>Area di effetto:</strong> {stratagem.areaOfEffect}</p>
 
                         <div className="d-flex gap-3 mt-4">

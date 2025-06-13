@@ -44,9 +44,9 @@ export default function ComparePage() {
                                 <h2 className="card-title text-yellow">{stratagem.title}</h2>
                                 <p><strong>Categoria:</strong> {stratagem.category}</p>
                                 <p><strong>Descrizione:</strong> {stratagem.description}</p>
-                                <p><strong>Cooldown:</strong> {stratagem.cooldown}</p>
+                                <p><strong>Cooldown:</strong> {stratagem.cooldown} secondi</p>
                                 <p><strong>Usi:</strong> {stratagem.uses}</p>
-                                <p><strong>Tempo di dispiegamento:</strong> {stratagem.deploymentTime}</p>
+                                <p><strong>Tempo di dispiegamento:</strong> {stratagem.deploymentTime} secondi</p>
                                 <p><strong>Area di effetto:</strong> {stratagem.areaOfEffect}</p>
                                 <button
                                     className="btn btn-warning mt-auto"
