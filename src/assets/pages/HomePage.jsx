@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { useGlobalContext } from "../context/GlobalContext";
 import MainStratagems from "../components/MainStratagems"
 import SearchBar from "../components/SearchBar";
@@ -15,17 +15,24 @@ export default function HomePage() {
         setSortOrder(prev => prev === 1 ? -1 : 1)
     }
 
-    const filteredData = stratagems.filter(item =>
-        item.title.toLowerCase().includes(query.toLowerCase()) ||
-        item.category.toLowerCase().includes(query.toLowerCase())
-    )
-        .filter((item) => (filteredStrat ? item.category === filteredStrat : true))
+    const memorizedMemo = useMemo(() => {
+        const filteredData = stratagems
+            .filter(item =>
+                item.title.toLowerCase().includes(query.toLowerCase()) ||
+                item.category.toLowerCase().includes(query.toLowerCase())
+            )
+            .filter(item => (filteredStrat ? item.category === filteredStrat : true));
 
-    filteredData.sort((a, b) => {
-        return sortOrder === 1
-            ? a.title.localeCompare(b.title)
-            : b.title.localeCompare(a.title)
-    })
+        filteredData.sort((a, b) => {
+            return sortOrder === 1
+                ? a.title.localeCompare(b.title)
+                : b.title.localeCompare(a.title);
+        });
+
+        return filteredData;
+    }, [stratagems, query, filteredStrat, sortOrder]);
+
+
 
     useEffect(() => {
         fetchDataStratagem()
@@ -57,7 +64,7 @@ export default function HomePage() {
                     </div>
 
                     <h3 className="text-center mb-4 text-yellow">Stratagemmi</h3>
-                    <MainStratagems filteredStratagems={filteredData} />
+                    <MainStratagems memorizedMemo={memorizedMemo} />
                 </div>
             </div>
         </>

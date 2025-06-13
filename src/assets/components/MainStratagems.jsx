@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export default function MainStratagems({ filteredStratagems }) {
+export default function MainStratagems({ memorizedMemo }) {
 
   const categoryClasses = {
     offensivo: "bg-danger text-white",
@@ -10,7 +10,7 @@ export default function MainStratagems({ filteredStratagems }) {
   return (
     <div className="container">
       <div className="row">
-        {filteredStratagems.map((element) => {
+        {memorizedMemo.map((element) => {
           const categoryKey = element.category.toLowerCase();
           const categoryClass = categoryClasses[categoryKey] || "bg-light text-dark"
 
