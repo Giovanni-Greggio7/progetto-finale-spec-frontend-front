@@ -1,11 +1,26 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect, useCallback, useMemo } from "react";
 
 const GlobalContext = createContext();
 
 const GlobalProvider = ({ children }) => {
+
+    function debounce(callback, delay) {
+        let timer
+        return ((value) => {
+            clearTimeout(timer)
+            timer = setTimeout(() => {
+                callback(value)
+            }, delay)
+        })
+    }
+
     const [stratagems, setStratagems] = useState([])
     const [compareStratagems, setCompareStratagems] = useState([])
     const [favouriteStratagem, setFavouriteStratagem] = useState([])
+    const [query, setQuery] = useState('')
+    const [inputQuery, setInputQuery] = useState('')
+    const [filteredStrat, setFilteredStrat] = useState('')
+    const [sortOrder, setSortOrder] = useState(0)
 
     function fetchDataStratagem() {
         fetch('http://localhost:3001/stratagems')
@@ -17,12 +32,39 @@ const GlobalProvider = ({ children }) => {
             .catch(error => console.error("Errore nel recupero degli stratagemmi:", error));
     }
 
+    const memorizedMemo = useMemo(() => {
+
+        const filteredData = stratagems
+            .filter(item =>
+                item.title.toLowerCase().includes(query.toLowerCase()) ||
+                item.category.toLowerCase().includes(query.toLowerCase())
+            )
+            .filter(item => (filteredStrat ? item.category === filteredStrat : true));
+
+        filteredData.sort((a, b) => {
+            return sortOrder === 1
+                ? a.title.localeCompare(b.title)
+                : b.title.localeCompare(a.title);
+        });
+
+        return filteredData;
+
+    }, [stratagems, query, filteredStrat, sortOrder]);
+
+    const debouncedSetQuery = useCallback(
+        debounce(value => setQuery(value), 1000),
+        [])
+
+    function handleClick() {
+        setSortOrder(prev => prev === 1 ? -1 : 1)
+    }
+
     useEffect(() => {
-        fetchDataStratagem();
-    }, []);
+        debouncedSetQuery(inputQuery);
+    }, [inputQuery]);
 
     const addToCompare = (stratagem) => {
-        if (compareStratagems.length < 2 && !compareStratagems.find((item) => item.id === stratagem.id)) {
+        if (compareStratagems.length < 4 && !compareStratagems.find((item) => item.id === stratagem.id)) {
             setCompareStratagems([...compareStratagems, stratagem]);
         }
     }
@@ -52,6 +94,15 @@ const GlobalProvider = ({ children }) => {
             value={{
                 stratagems,
                 setStratagems,
+                query,
+                setQuery,
+                memorizedMemo,
+                handleClick,
+                sortOrder,
+                inputQuery,
+                setInputQuery,
+                filteredStrat,
+                setFilteredStrat,
                 compareStratagems,
                 favouriteStratagem,
                 addToCompare,

@@ -1,49 +1,23 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect } from 'react'
 import { useGlobalContext } from "../context/GlobalContext";
 import MainStratagems from "../components/MainStratagems"
 import SearchBar from "../components/SearchBar";
+import Test from '../components/Test';
 
 export default function HomePage() {
 
-    const { fetchDataStratagem, stratagems } = useGlobalContext();
-
-    const [query, setQuery] = useState('')
-    const [filteredStrat, setFilteredStrat] = useState('')
-    const [sortOrder, setSortOrder] = useState(0)
-
-    function handleClick() {
-        setSortOrder(prev => prev === 1 ? -1 : 1)
-    }
-
-    const memorizedMemo = useMemo(() => {
-        const filteredData = stratagems
-            .filter(item =>
-                item.title.toLowerCase().includes(query.toLowerCase()) ||
-                item.category.toLowerCase().includes(query.toLowerCase())
-            )
-            .filter(item => (filteredStrat ? item.category === filteredStrat : true));
-
-        filteredData.sort((a, b) => {
-            return sortOrder === 1
-                ? a.title.localeCompare(b.title)
-                : b.title.localeCompare(a.title);
-        });
-
-        return filteredData;
-    }, [stratagems, query, filteredStrat, sortOrder]);
-
-
+    const { fetchDataStratagem, memorizedMemo, handleClick, sortOrder, filteredStrat, setFilteredStrat } = useGlobalContext();
 
     useEffect(() => {
-        fetchDataStratagem()
-    }, [])
+        fetchDataStratagem();
+    }, []);
 
     return (
         <>
             <div className="bg-dark vh-100">
                 <div className="container">
                     <div className="text-center mb-3">
-                        <SearchBar query={query} setQuery={setQuery} />
+                        <SearchBar />
                     </div>
 
                     <div className="d-flex flex-wrap justify-content-center align-items-center gap-3 mb-4">
@@ -65,6 +39,7 @@ export default function HomePage() {
 
                     <h3 className="text-center mb-4 text-yellow">Stratagemmi</h3>
                     <MainStratagems memorizedMemo={memorizedMemo} />
+                    <Test/>
                 </div>
             </div>
         </>

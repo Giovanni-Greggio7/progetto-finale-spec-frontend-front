@@ -27,7 +27,7 @@ export default function ComparePage() {
             <h1 className="text-center text-warning mb-5">Confronto Stratagemmi</h1>
             <div className="row g-4">
                 {compareStratagems.map((stratagem) => (
-                    <div key={stratagem.id} className="col-md-6">
+                    <div key={stratagem.id} className="col-md-3">
                         <div className="card bg-secondary text-light h-100 shadow-lg">
                             <div className="card-body d-flex flex-column">
                                 <img
@@ -60,7 +60,7 @@ export default function ComparePage() {
                 ))}
             </div>
 
-            {compareStratagems.length === 1 && (
+            {compareStratagems.length < 4 && (
                 <div className="text-center mt-5">
                     <button className="btn btn-primary" onClick={handleBackToHome}>
                         Torna alla Homepage per selezionare un altro stratagemma
