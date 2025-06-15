@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react'
-import { useGlobalContext } from "../context/GlobalContext";
+import { useGlobalContext } from "../context/GlobalContext"
 import MainStratagems from "../components/MainStratagems"
-import SearchBar from "../components/SearchBar";
-import Test from '../components/Test';
+import SearchBar from "../components/SearchBar"
 
 export default function HomePage() {
 
