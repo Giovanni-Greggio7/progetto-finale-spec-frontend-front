@@ -38,7 +38,7 @@ export default function HomePage() {
                     </div>
 
                     <h3 className="text-center mb-4 text-yellow">Stratagemmi</h3>
-                    <MainStratagems memorizedMemo={memorizedMemo} />
+                    <MainStratagems />
                     <Test/>
                 </div>
             </div>

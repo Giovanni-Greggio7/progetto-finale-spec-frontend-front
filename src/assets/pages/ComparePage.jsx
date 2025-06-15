@@ -2,6 +2,7 @@ import { useGlobalContext } from '../context/GlobalContext';
 import { useNavigate } from 'react-router-dom';
 
 export default function ComparePage() {
+    
     const { compareStratagems, clearCompare } = useGlobalContext();
     const navigate = useNavigate();
 

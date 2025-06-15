@@ -15,8 +15,17 @@ const GlobalProvider = ({ children }) => {
     }
 
     const [stratagems, setStratagems] = useState([])
-    const [compareStratagems, setCompareStratagems] = useState([])
-    const [favouriteStratagem, setFavouriteStratagem] = useState([])
+
+    const [compareStratagems, setCompareStratagems] = useState(() => {
+        const savedCompared = localStorage.getItem("compareStratagems");
+        return savedCompared ? JSON.parse(savedCompared) : [];
+    })
+
+    const [favouriteStratagem, setFavouriteStratagem] = useState(() => {
+        const savedFavourites = localStorage.getItem("favouriteStratagem");
+        return savedFavourites ? JSON.parse(savedFavourites) : [];
+    });
+
     const [query, setQuery] = useState('')
     const [inputQuery, setInputQuery] = useState('')
     const [filteredStrat, setFilteredStrat] = useState('')
@@ -32,6 +41,7 @@ const GlobalProvider = ({ children }) => {
             .catch(error => console.error("Errore nel recupero degli stratagemmi:", error));
     }
 
+    //USEMEMO PER FILTRO E ORDINE
     const memorizedMemo = useMemo(() => {
 
         const filteredData = stratagems
@@ -45,16 +55,18 @@ const GlobalProvider = ({ children }) => {
             return sortOrder === 1
                 ? a.title.localeCompare(b.title)
                 : b.title.localeCompare(a.title);
-        });
+        })
 
-        return filteredData;
+        return filteredData
 
     }, [stratagems, query, filteredStrat, sortOrder]);
 
+    //INPUT RICERCA RITARDATO DI 1 SECONDO
     const debouncedSetQuery = useCallback(
         debounce(value => setQuery(value), 1000),
         [])
 
+    //PULSANTE ORDINE ALFABETICO
     function handleClick() {
         setSortOrder(prev => prev === 1 ? -1 : 1)
     }
@@ -63,31 +75,47 @@ const GlobalProvider = ({ children }) => {
         debouncedSetQuery(inputQuery);
     }, [inputQuery]);
 
+
+    //LOGICA COMPARATORE
     const addToCompare = (stratagem) => {
         if (compareStratagems.length < 4 && !compareStratagems.find((item) => item.id === stratagem.id)) {
             setCompareStratagems([...compareStratagems, stratagem]);
-        }
-    }
-
-    const addToFavourite = (stratagem) => {
-        if (!favouriteStratagem.find((item) => item.id === stratagem.id)) {
-            setFavouriteStratagem([...favouriteStratagem, stratagem])
-        }
-    }
-
-    const clearFavourite = (stratagem = null) => {
-        if (stratagem) {
-            setFavouriteStratagem(favouriteStratagem.filter((item) => item.id !== stratagem.id));
+            localStorage.setItem('compareStratagems', JSON.stringify(compareStratagems))
         }
     }
 
     const clearCompare = (stratagem = null) => {
+        let updatedCompare
         if (stratagem) {
-            setCompareStratagems(compareStratagems.filter((item) => item.id !== stratagem.id));
+            updatedCompare = compareStratagems.filter((item) => item.id !== stratagem.id);
         } else {
-            setCompareStratagems([]);
+            updatedCompare = [];
+        }
+        setCompareStratagems(updatedCompare)
+        localStorage.setItem('compareStratagems', JSON.stringify(updatedCompare))
+    }
+
+     //LOGICA LISTA PREFERITI
+    const addToFavourite = (stratagem) => {
+        if (!favouriteStratagem.find((item) => item.id === stratagem.id)) {
+            const newFavourites = [...favouriteStratagem, stratagem]
+            setFavouriteStratagem(newFavourites)
+            localStorage.setItem("favouriteStratagem", JSON.stringify(newFavourites))
         }
     }
+
+    const clearFavourite = (stratagem = null) => {
+        let updatedFavourites;
+        if (stratagem) {
+            updatedFavourites = favouriteStratagem.filter((item) => item.id !== stratagem.id);
+        } else {
+            updatedFavourites = [];
+        }
+        setFavouriteStratagem(updatedFavourites);
+        localStorage.setItem("favouriteStratagem", JSON.stringify(updatedFavourites));
+    };
+
+
 
     return (
         <GlobalContext.Provider

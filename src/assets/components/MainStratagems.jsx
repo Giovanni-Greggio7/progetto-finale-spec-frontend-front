@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import { useGlobalContext } from "../context/GlobalContext";
 
-export default function MainStratagems({ memorizedMemo }) {
+export default function MainStratagems() {
+
+  const { memorizedMemo } = useGlobalContext()
 
   const categoryClasses = {
     offensivo: "bg-danger text-white",
