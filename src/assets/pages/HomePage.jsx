@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useGlobalContext } from "../context/GlobalContext"
 import MainStratagems from "../components/MainStratagems"
 import SearchBar from "../components/SearchBar"
 
 export default function HomePage() {
 
-    const { fetchDataStratagem, memorizedMemo, handleClick, sortOrder, filteredStrat, setFilteredStrat } = useGlobalContext();
+    const { fetchDataStratagem, handleClick, sortOrder, filteredStrat, setFilteredStrat } = useGlobalContext();
 
     useEffect(() => {
         fetchDataStratagem();
